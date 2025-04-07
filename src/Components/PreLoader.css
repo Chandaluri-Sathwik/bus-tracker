@@ -1,0 +1,45 @@
+/* Preloader Container */
+.preloader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f7f7f7; /* Light background for the preloader */
+    position: relative;
+  }
+  
+  /* Logo */
+  .preloader-logo {
+    position: relative;
+    z-index: 2; /* Ensure logo stays above the animation */
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+  }
+  
+  /* Radial Circle Animation */
+  .radial-circle {
+    position: absolute;
+    width: 100px; /* Initial size of the circle */
+    height: 100px; /* Initial size of the circle */
+    border-radius: 50%;
+    background-color: rgba(106, 17, 203, 0.3); /* Purple color with transparency */
+    animation: growShrink 2s ease-in-out infinite; /* Animation applied here */
+  }
+  
+  /* Keyframes for Radial Growth and Shrink */
+  @keyframes growShrink {
+    0% {
+      transform: scale(1); /* Initial size */
+      opacity: 1; /* Fully visible */
+    }
+    50% {
+      transform: scale(2); /* Circle grows radially */
+      opacity: 0.5; /* Slightly transparent */
+    }
+    100% {
+      transform: scale(1); /* Circle shrinks back to original size */
+      opacity: 1; /* Fully visible again */
+    }
+  }
+  

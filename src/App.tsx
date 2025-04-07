@@ -8,6 +8,7 @@ const App: React.FC = () => {
 			<Routes>
 				<Route path="/login" element={<DriverComponent />} />
 				<Route path="/home" index element={<UserComponent />} />
+
 			</Routes>
 		</Router>
 	);

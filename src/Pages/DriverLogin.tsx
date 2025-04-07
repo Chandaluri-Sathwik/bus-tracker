@@ -10,6 +10,7 @@ import Header from '../Components/Header';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import BusIcon from "../assets/Group 1.png";
+import PreLoader from '../Components/PreLoader';
 const busIcon = new L.Icon({
   iconUrl: BusIcon,
   iconSize: [40,40],
@@ -24,6 +25,7 @@ const DriverComponent = () => {
   const [driverPosition, setDriverPosition] = useState<[number, number]>([ 12.985207, 80.2333618 ]);
   const [isLoggedIn,setIsLoggedIn]=useState(false);
   const [hasCenteredMap, setHasCenteredMap] = useState(false);
+  const [mapLoading, setMapLoading] = useState(true);
   useEffect(() => {
 	const sessionFlag = localStorage.getItem("sessionExpired");
 	if (sessionFlag === "true") {
@@ -133,6 +135,7 @@ const DriverComponent = () => {
 
   return (
     <>
+	{isLoggedIn && mapLoading && <PreLoader/>}
     {!isLoggedIn && 
     <Row justify="center"   style={{ width:"100vw", maxWidth: "400px", margin:"0 auto" }}>
 				<Col span={24}>
@@ -280,6 +283,7 @@ const DriverComponent = () => {
         center={driverPosition}
         zoom={20}
         style={{ height: '100%', width: '100%' }}
+		whenReady={() => setMapLoading(false)} 
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

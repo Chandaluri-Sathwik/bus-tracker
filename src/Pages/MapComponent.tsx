@@ -6,6 +6,7 @@ import L from 'leaflet';
 import { Row, Col } from 'antd';
 import BusIcon from "../assets/Group 1.png";
 import Header from '../Components/Header';
+import PreLoader from '../Components/PreLoader';
 // Create custom icons
 const userLocationIcon = L.divIcon({
   className: 'custom-user-icon',
@@ -75,7 +76,7 @@ const UserComponent = () => {
   const [busPositions, setBusPositions] = useState<BusPosition[]>([]);
   const [userPosition, setUserPosition] = useState<[number, number]>([12.9851912, 80.2333214]);
   const [hasCenteredMap, setHasCenteredMap] = useState(false);
-
+  const [mapLoading, setMapLoading] = useState(true);
   // Track user's position
   useEffect(() => {
     const watcher = navigator.geolocation.watchPosition(
@@ -116,6 +117,8 @@ const UserComponent = () => {
   }, []);
 
   return (
+    <>
+    {mapLoading && <PreLoader/>}
     <Row
       justify="center"
       align="middle"
@@ -127,6 +130,7 @@ const UserComponent = () => {
           center={userPosition || [12.9716, 77.5946]}
           zoom={20}
           style={{ height: '100%', width: '100%' }}
+          whenReady={() => setMapLoading(false)} 
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -151,7 +155,7 @@ const UserComponent = () => {
           {userPosition && <CenterMapButton center={userPosition} />}
         </MapContainer>
       </Col>
-    </Row>
+    </Row></>
   );
 };
 
